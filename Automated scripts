@@ -1,0 +1,62 @@
+package basic.java;
+
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.Scanner;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+import jxl.Sheet;
+import jxl.Workbook;
+import jxl.read.biff.BiffException;
+
+public class basicprg {
+
+	public static void main(String[] args) throws IOException, BiffException, InterruptedException {
+		// TODO Auto-generated method stub
+		System.setProperty("webdriver.chrome.driver","C://chromedriver.exe");
+		WebDriver w=new ChromeDriver();
+		w.get("https://www.saucedemo.com/");
+		w.manage().window().maximize();
+		FileInputStream f1=new FileInputStream("D://login.xls");
+		Workbook wb=Workbook.getWorkbook(f1);
+		Sheet sh=wb.getSheet(0);
+		Thread.sleep(4000, 0);
+		for(int i=0;i<sh.getRows();i++)
+		{
+			w.get("https://www.saucedemo.com/");
+			String str1=sh.getCell(0,i).getContents();
+			w.findElement(By.id("user-name")).sendKeys(str1);
+			String str2=sh.getCell(1,i).getContents();
+			w.findElement(By.id("password")).sendKeys(str2);
+			w.findElement(By.id("login-button")).click();
+			
+	}
+		
+		
+		w.findElement(By.xpath("//*[@id=\"header_container\"]/div[2]/div/span/select")).sendKeys("Price (low to high)");
+		w.findElement(By.id("add-to-cart-sauce-labs-onesie")).click();
+		w.findElement(By.id("add-to-cart-sauce-labs-backpack")).click();
+		w.findElement(By.id("add-to-cart-sauce-labs-bike-light")).click();
+		w.findElement(By.id("add-to-cart-sauce-labs-bolt-t-shirt")).click();
+		w.findElement(By.id("add-to-cart-test.allthethings()-t-shirt-(red)")).click();
+		w.findElement(By.id("add-to-cart-sauce-labs-fleece-jacket")).click();
+		w.findElement(By.xpath("//*[@id=\"shopping_cart_container\"]/a")).click();
+		w.findElement(By.id("remove-sauce-labs-bike-light")).click();
+		w.findElement(By.id("remove-sauce-labs-onesie")).click();
+		w.findElement(By.id("checkout")).click();
+		w.findElement(By.id("first-name")).sendKeys("Angelina");
+		w.findElement(By.id("last-name")).sendKeys("Joseph");
+		w.findElement(By.id("postal-code")).sendKeys("680722");
+		w.findElement(By.id("continue")).click();
+		w.findElement(By.id("finish")).click();
+		w.findElement(By.id("back-to-products")).click();
+		w.findElement(By.xpath("//*[@id=\"react-burger-menu-btn\"]")).click();
+		w.findElement(By.xpath("//*[@id=\"logout_sidebar_link\"]")).click();
+	
+
+}
+}
